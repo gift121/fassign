@@ -1,52 +1,36 @@
-const form = document.getElementById('form');
-const fname = document.getElementById('fname');
-const lname = document.getElementById('lname');
-const email = document.getElementsById('email');
-const Password = document.getElementsById('password')
 
-form.addEventListener('submit', e=> {
-    
-    e.preventDefault();
-
-    validateInput();
-});
-const setError = (element, message) => {
-    const inputControl = element.parentElements;
-    const errorDisplay = inputControl.querySelector('error');
-
-    errorDisplay.InnerText = message;
-    inputControl,classList.add('error');
-    inputControl.classList.remove('success');
+function showError(errorElement, errorMessage){
+  document.querySelector("."+errorElement).classList.add("display-error");
+  document.querySelector("."+errorElement).innerHTML = errorMessage;
 }
+function clearError(){
+  let errors = document.querySelectorAll(".error");
+  for(let error of errors){
+    error.classList.remove("display-error");
+  }
+}
+let form = document.forms['submit-form'];
+form.onsubmit = function(event){
 
-const validateInputs = ()=> {
-    const fnameValue = fname.value.trim();
-    const lnameValue = lname.value.trim();
-    const emailValue = email.value.trim();
-    const passwordValue = password.value.trim();
+  clearError();
 
-    if (fnameValue ==='null'||fname=="") {
-        setError(fname, 'firstname cannot be empty');
-    }
-    else{
-        setSuccess(fname,'firstname is valid');
-    }
-    if(lnameValue ===''){
-        setError(lname, 'lastname cannot be empty');
-    }
-    else{
-        setSuccess(lname, 'lastname is valid');
-    }
-    if (emailValue ==='') {
-        setError(email, 'this is not an example of email');
-    }
-    else{
-        setSuccess(email, 'email is valid');
-    }
-    if(passwordValue ==='') {
-        setError(Password, 'password cannot be empty');
-    }
-    else{
-        setSuccess(Password, 'password is valid');
-    }
+  if (form.fname.value === ""){
+       showError("fname-error", "First Name cannot be empty");
+       returnFalse;
+  }
+  if (form.lname.value === ""){
+    showError("lname-error", "Last Name cannot be empty");
+    returnFalse;
+  }
+ if (form.email.value === ""){
+  showError("email-error", "Looks like this is not an email");
+  returnFalse;
+ }
+ if (form.password.value === ""){
+  showError("password-error", "password cannot be empty");
+  returnFalse;
+ }
+ document.querySelector(".success").classList.add("display-success");
+ document.querySelector(".success").innerHTML = "your registration was sucessful"
+  event.preventDefault();
 }
